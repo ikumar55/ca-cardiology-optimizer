@@ -1,0 +1,74 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+
+# Virtual environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Test artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+nosetests.xml
+coverage.xml
+
+# Documentation build files
+site/
+docs/_build/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Secrets (should be passed as build args or secrets)
+.env
+.env.*
+*.env
+
+# Data files (should be mounted as volumes or managed by DVC)
+data/
+*.csv
+*.parquet
+*.json
+*.pkl
+
+# Model files (should be downloaded or mounted)
+models/
+*.pt
+*.pth
+*.joblib
+
+# Logs
+logs/
+*.log
+
+# Notebooks
+notebooks/
+.ipynb_checkpoints
+
+# Legacy setup files
+legacy-setup/
+
+# OS-specific files
+.DS_Store
+Thumbs.db 
