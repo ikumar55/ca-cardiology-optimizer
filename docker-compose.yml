@@ -1,0 +1,53 @@
+# docker-compose.yml for Cardiology Care Optimization System
+# Development environment setup
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cardiology_optimizer_app
+    restart: unless-stopped
+    ports:
+      - "8501:8501"  # Streamlit dashboard
+      - "8888:8888"  # Jupyter Lab
+    volumes:
+      - ./src:/home/app/src
+      - ./data:/home/app/data
+      - ./models:/home/app/models
+      - ./notebooks:/home/app/notebooks
+      - ./config:/home/app/config
+      - ./tests:/home/app/tests
+      - ./logs:/home/app/logs
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WANDB_API_KEY=${WANDB_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    command: >
+      sh -c "
+        if [ \"$1\" = 'notebook' ]; then
+          jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+        else
+          streamlit run src/visualization/dashboard.py --server.port 8501 --server.address 0.0.0.0
+        fi
+      "
+    # To run jupyter lab: docker-compose run app notebook
+
+  db:
+    image: anankran/duckdb-cli:v0.9.0
+    container_name: duckdb_cli
+    volumes:
+      - ./data/processed:/data
+    working_dir: /data
+    command: "cardiology_db.duckdb"
+    stdin_open: true
+    tty: true
+
+volumes:
+  logs:
+  data:
+  models: 
