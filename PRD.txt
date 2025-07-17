@@ -1,0 +1,109 @@
+# PRD: Cardiology Care Optimization System for California (v2 - Refined)
+
+## 1. Overview
+
+This document outlines the requirements for the Cardiology Care Optimization System, a data-driven pipeline designed to analyze and optimize the distribution of cardiologists in California. This refined plan (v2) de-risks the initial concept by focusing on reliable data sources and a robust validation framework, while maintaining the project's ambitious technical scope.
+
+**Core Philosophy:** The project is framed as a **"spatial optimization framework."** It uses advanced machine learning (GNNs, RL) to find the theoretical optimal distribution of cardiologists, assuming perfect provider mobility. By comparing this optimum to the real-world baseline, the system quantifies the structural inefficiencies and "opportunity cost" imposed by market frictions and logistical barriers in healthcare.
+
+**Primary Goal:** To create a powerful portfolio project that demonstrates end-to-end ML engineering skills, from data ingestion and validation to advanced modeling and interactive visualization. It will showcase the ability to tackle complex, real-world problems with scientific rigor and practical, de-risked execution.
+
+**Target Audience:** ML engineering hiring managers, particularly in tech companies with healthcare, logistics, or complex systems applications.
+
+## 2. Core Features
+
+### 2.1. De-risked Data Foundation
+- **Description:** A robust, multi-source data pipeline that forms the reliable backbone of the entire system.
+- **Components:**
+    - **Provider Data Collection:** Uses the reliable CMS NPPES bulk file as the primary source for the ~5,200 CA cardiologists, validated against state-level directories.
+    - **Demand Signal Construction:** A robust demand estimate created by ensembling CDC PLACES data, CMS Medicare claims, and ACS demographic data.
+    - **Travel Time Matrix:** De-risks the computationally expensive OSRM step by prioritizing the use of pre-computed academic travel matrices or a hybrid interpolation approach.
+    - **Historical Movement Data:** Focused collection of 50-100 statistically significant inter-county provider relocations from 2020-2023 to serve as a high-quality validation set for natural experiments.
+
+### 2.2. Baseline & Forecasting Models
+- **Description:** Establishes a baseline for unmet demand and forecasts future changes using both classical and graph-based models.
+- **Components:**
+    - **Unmet-Demand-Index (UDI):** A baseline metric identifying ZIP codes where patients travel >30 minutes for care.
+    - **Classical Baselines:** SARIMA and XGBoost models to provide a performance benchmark.
+    - **Enhanced GraphSAGE Forecast:** A multi-task GNN that predicts both future UDI changes and provider utilization, built on a heterogeneous graph of ZIP codes and providers.
+
+### 2.3. Multi-Objective Reinforcement Learning
+- **Description:** An offline PPO agent that learns optimal provider reallocation strategies by balancing multiple real-world objectives.
+- **Components:**
+    - **Multi-Objective Gym Environment:** A custom environment that rewards the agent based on a weighted combination of `access improvement`, `utilization balance`, and `movement cost`.
+    - **Realistic Action Space:** Constrains agent actions to a feasible number of provider moves between counties.
+
+### 2.4. Rigorous Historical & Counterfactual Validation
+- **Description:** A validation framework that uses real-world historical data to prove model reliability and quantify impact.
+- **Components:**
+    - **Natural Experiment Analysis:** Compares model predictions against the actual impact of the 50-100 historical provider movements.
+    - **Counterfactual Analysis:** Quantifies the "opportunity cost" of suboptimal allocation by running the trained RL policy on historical data.
+
+### 2.5. "Killer Feature" Interactive Dashboard
+- **Description:** A Streamlit application for real-time "what-if" analysis and stakeholder communication.
+- **Features:**
+    - **Interactive Optimization:** Users can select a county, set constraints (e.g., budget), and run the RL policy to see optimal allocations in real-time.
+    - **Validation Explorer:** An interactive dashboard to deep-dive into the historical validation results, comparing predicted vs. actual outcomes.
+    - **A/B Toggles & Insight Summaries:** Clear, one-click comparisons of different scenarios (Baseline vs. Optimal) and high-level takeaways.
+
+## 3. Technical Architecture
+
+- **Data & Infrastructure:** DuckDB, DVC, GeoPandas/Shapely, Pre-computed travel matrices.
+- **Machine Learning:** PyTorch/PyTorch Geometric, Stable-Baselines3, Scikit-learn, Optuna.
+- **Visualization & Deployment:** Streamlit, Folium/Plotly, Docker.
+- **DevOps:** GitHub Actions for CI (linting/testing).
+- **Infrastructure:** Local development, with Google Colab Pro for GPU-intensive training.
+
+## 4. Development Roadmap (Phased Approach)
+
+### Phase 1: Robust Data Foundation (Weeks 1-2)
+1.  **Provider Data Collection:** Ingest and process provider data from CMS NPPES and CA HHS directories. Create `providers.parquet`.
+2.  **Demand Signal Construction:** Ensemble data from CDC PLACES, CMS claims, and ACS to create `zip_demand.parquet`.
+3.  **Travel Time Matrix:** Acquire or compute the travel matrix. Create `travel_matrix.parquet`.
+4.  **Historical Movement Data:** Track provider address changes from NPPES monthly files to create `movements.parquet`.
+
+### Phase 2: Baseline Analytics (Week 3)
+1.  **UDI Calculation:** Compute the baseline Unmet-Demand Index.
+2.  **Classical Baselines:** Implement SARIMA and XGBoost models for comparison.
+
+### Phase 3: Graph Neural Network (Weeks 4-5)
+1.  **Graph Construction:** Build the heterogeneous graph with ZIP and provider nodes and multiple edge types.
+2.  **GraphSAGE Training:** Implement and train the multi-task GNN to predict both UDI and provider utilization.
+
+### Phase 4: Reinforcement Learning (Weeks 6-7)
+1.  **Environment Design:** Build the multi-objective `gym.Env` with weighted rewards for access, utilization, and movement cost.
+2.  **PPO Agent Training:** Train the PPO agent on the custom environment.
+
+### Phase 5: Historical Validation (Week 8)
+1.  **Natural Experiment Analysis:** Validate the GNN model's predictions against the 50-100 historical provider movements. Target R² > 0.4.
+2.  **Counterfactual Analysis:** Run the trained RL policy on historical data to quantify the opportunity cost of suboptimal allocation.
+
+### Phase 6: Dashboard & Visualization (Week 9)
+1.  **Interactive Optimization Interface:** Build the Streamlit interface for real-time "what-if" scenarios.
+2.  **Validation Dashboard:** Create the interactive dashboard to explore historical validation results.
+
+### Phase 7: Deployment & Portfolio (Week 10)
+1.  **Containerize Application:** Create a production-ready Dockerfile for the Streamlit app.
+2.  **Deploy:** Deploy the live demo to Streamlit Cloud.
+3.  **Create Portfolio Materials:** Write the technical report, executive summary, and record a video walkthrough.
+
+## 5. Risks and Mitigations
+
+- **Risk:** Data scraping brittleness.
+  - **Mitigation (Solved):** Switched to reliable bulk data sources (CMS NPPES) instead of web scraping.
+- **Risk:** 72-hour travel matrix computation bottleneck.
+  - **Mitigation (Solved):** Prioritizing use of pre-computed matrices or smart interpolation, eliminating the need to run a full OSRM instance.
+- **Risk:** Validation is complex and open-ended.
+  - **Mitigation (Solved):** Focusing on a statistically significant but achievable set of 50-100 clear, historical "natural experiments."
+- **Risk:** Over-engineering and scope creep.
+  - **Mitigation (Solved):** A tightly scoped, phased plan that prioritizes a robust data foundation and ensures a deliverable MVP.
+
+## 6. Appendix: Data Source Links
+
+- **Primary Provider Data:** CMS National Plan and Provider Enumeration System (NPPES) Data Dissemination
+- **Primary Demand Data:** CDC PLACES, CMS Public Use Files (PUF), Census ACS
+- **Travel Matrices:** Academic sources (e.g., Health Geography research datasets) to be investigated.
+- **Legacy/Validation Sources:**
+    - [Medical Board of California Public Information](https://www.mbc.ca.gov/Resources/Statistics/Public-Information.aspx)
+    - [HCAI Clinic Utilization](https://hcai.ca.gov/data/healthcare-utilization/clinic-utilization/)
+    - [OSM California Extract](https://download.geofabrik.de/north-america/us/california.html) 
