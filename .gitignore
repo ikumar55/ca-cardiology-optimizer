@@ -150,6 +150,10 @@ Thumbs.db
 .vscode/
 .cursor/
 .claude/
+.clinerules/
+.roo/
+.trae/
+.windsurf/
 *.swp
 *.swo
 *~
