@@ -148,6 +148,8 @@ Thumbs.db
 # Editor directories and files
 .idea/
 .vscode/
+.cursor/
+.claude/
 *.swp
 *.swo
 *~
@@ -177,10 +179,7 @@ aws-credentials.csv
 .env.production
 
 # Task files (from taskmaster)
-.taskmaster/tasks/tasks.json
-.taskmaster/tasks/*.md
-.taskmaster/state.json
-.taskmaster/reports/
+.taskmaster/
 
 # Temporary files
 temp/
@@ -199,4 +198,4 @@ tmp/
 node_modules/
 .vercel
 *.tsbuildinfo
-next-env.d.ts 
+next-env.d.ts
