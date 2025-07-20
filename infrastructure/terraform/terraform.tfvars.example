@@ -1,0 +1,41 @@
+# Example Terraform variables file for Cardiology Care Optimization System
+# Copy this to terraform.tfvars and customize for your environment
+
+# Basic Configuration
+aws_region  = "us-west-2"
+environment = "dev"
+owner       = "your-name-or-team"
+
+# Cost Management (IMPORTANT: Set a reasonable budget)
+monthly_budget_limit = "25"  # USD - Adjust based on your needs
+budget_alert_email   = "your-email@example.com"  # Required for budget alerts
+
+# S3 Configuration
+# S3 bucket names must be globally unique, so add a unique prefix
+s3_bucket_prefix = "your-unique-prefix"  # e.g., "john-doe" or "acme-corp"
+
+# Compute Configuration
+instance_type = "t3.medium"  # Options: t3.small, t3.medium, t3.large, etc.
+
+# Security Configuration
+key_pair_name = "your-aws-key-pair"  # Create this in AWS EC2 console first
+allowed_cidr_blocks = [
+  "0.0.0.0/0"  # WARNING: Open to internet - restrict in production
+  # Example restricted access:
+  # "YOUR.PUBLIC.IP.ADDRESS/32"  # Your IP only
+  # "10.0.0.0/8"                 # Private networks only
+]
+
+# Cost Optimization (for development environment)
+enable_nat_gateway    = false  # Set to true if you need private subnets
+enable_cloudtrail     = false  # Set to true for audit logging (additional cost)
+enable_vpc_flow_logs  = false  # Set to true for network monitoring (additional cost)
+
+# Example production settings (uncomment and adjust as needed):
+# environment = "prod"
+# monthly_budget_limit = "200"
+# instance_type = "c5.xlarge"
+# enable_nat_gateway = true
+# enable_cloudtrail = true
+# enable_vpc_flow_logs = true
+# allowed_cidr_blocks = ["YOUR.OFFICE.IP.RANGE/24"]
