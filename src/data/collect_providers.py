@@ -22,10 +22,13 @@ try:
 except ImportError:
     # Fallback for standalone testing
     import logging
+
     def get_logger(name):
         return logging.getLogger(name)
+
     def get_aws_helper():
         return None
+
 
 logger = get_logger(__name__)
 
