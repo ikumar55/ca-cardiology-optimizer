@@ -91,7 +91,7 @@ class ProviderGeocoder:
 
         try:
             response = requests.get(
-                url, headers={"User-Agent": "CardiologyOptimizer/1.0"}
+                url, headers={"User-Agent": "CardiologyOptimizer/1.0"}, timeout=30
             )
             response.raise_for_status()
 
