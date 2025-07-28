@@ -1,190 +1,234 @@
-# Cardiology Care Optimization System for California
+# LA County Cardiology Access Optimizer
 
-A data-driven pipeline that uses graph neural networks and reinforcement learning to optimize the distribution of cardiologists across California, demonstrating the impact of provider allocation on healthcare access.
+**A comprehensive spatial optimization framework using graph neural networks and reinforcement learning to optimize cardiologist distribution across Los Angeles County, with rigorous historical validation and stakeholder-ready interactive tools.**
 
 ## 🎯 Project Overview
 
-This project quantifies the structural inefficiencies in healthcare access by modeling the theoretical optimal distribution of cardiologists under perfect mobility conditions. By comparing this optimum to real-world baselines, we reveal the "opportunity cost" imposed by market frictions and logistical barriers in healthcare delivery.
+This project develops an end-to-end machine learning system that optimizes cardiologist distribution using advanced AI techniques, with the unique capability to validate predictions against real-world provider movements from 2020-2024. The system transforms complex healthcare access optimization into actionable, evidence-based policy recommendations.
 
-### Key Features
+### Key Innovation
 
-- **Multi-source Data Integration**: Combines NPPES provider data, CDC health prevalence data, and travel time matrices
-- **Advanced ML Pipeline**: GraphSAGE neural networks for spatial prediction + PPO reinforcement learning for optimization
-- **Historical Validation**: Validates model predictions against 50-100 real provider movements (2020-2023)
-- **Interactive Dashboard**: Streamlit interface with real-time "what-if" scenario analysis
-- **Production Ready**: Containerized deployment with CI/CD pipeline
+- **Historical Validation**: Our system uniquely validates optimization recommendations against actual provider relocations, providing empirical credibility
+- **TaskMaster-Based Development**: Systematic, granular task management ensuring reproducible, well-documented implementation
+- **End-to-End Pipeline**: From raw data collection to interactive stakeholder dashboards
+- **Production-Ready Architecture**: Comprehensive data infrastructure with automated validation and monitoring
 
 ### Business Impact
 
-- Demonstrates potential **15% reduction** in average patient travel time
-- Identifies **8 percentage point** improvement in provider utilization
-- Provides **quantifiable insights** into healthcare accessibility gaps
+- **Evidence-Based Optimization**: Demonstrates measurable improvements in healthcare access through validated predictions
+- **Policy-Ready Insights**: Interactive dashboards enable healthcare administrators to explore scenarios and understand trade-offs
+- **Scalable Framework**: Methodology applicable to other medical specialties and geographic regions
 
-## 🚀 Quick Start
+## 🏗️ Project Architecture
+
+### **Task-Based Development Structure**
+
+This project is organized using **TaskMaster** - a comprehensive task management system that ensures systematic, well-documented development with granular (30-60 minute) subtasks and seamless AI assistant handoffs.
+
+```
+📁 Current Task Structure (10 Major Tasks, 20+ Subtasks):
+
+Phase 1: Data Foundation
+├── Task1_ProviderDataCollection/        # CA Medical Board physician data (12 subtasks)
+├── Task2_DemandSignalConstruction/      # CDC PLACES + Census demand modeling (8 subtasks)  
+├── Task3_TravelTimeMatrix/              # OSRM-based travel time calculations
+├── Task4_HistoricalMovementData/        # Provider relocations 2020-2024
+└── Task5_UnifiedDataPipeline/           # DVC-managed data integration
+
+Phase 2: Analysis & Optimization  
+├── Task6_UDICalculation/                # Unmet Demand Index baseline metrics
+├── Task7_ExploratoryDataAnalysis/       # Statistical analysis and pattern discovery
+└── Task8_RLEnvironment/                 # PPO reinforcement learning optimization
+
+Phase 3: Validation & Interface
+├── Task9_HistoricalValidation/          # Empirical validation against real movements
+└── Task10_InteractiveDashboard/         # Streamlit stakeholder interface
+
+Each TaskN_*/ folder contains:
+├── data/            # Task-specific data files
+├── scripts/         # Implementation scripts  
+├── results/         # Generated outputs and models
+└── documentation/   # TaskN_Implementation_diary.txt (detailed progress log)
+```
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
 - Python 3.9+
+- TaskMaster AI (for project management)
 - Git
-- Docker (optional, for containerized deployment)
+- Docker (optional)
 
-### Installation
+### Installation & Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ca-cardiology-optimizer.git
+git clone <repository-url>
 cd ca-cardiology-optimizer
-
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Set up environment variables
-cp .env.example .env
-# Edit .env with your API keys
+# Check TaskMaster status
+task-master list
+
+# View next task to work on
+task-master next
+
+# Start with Task 1 (GCP Infrastructure Setup)
+task-master show 1
+task-master set-status --id=1.1 --status=in-progress
 ```
 
-### Running the Application
+### 📋 New Window Streamlining Tools
 
+Essential files for maintaining context across AI sessions:
+
+- **NEW_WINDOW_BRIEFING.txt** - Complete project briefing with updated compliance requirements
+- **DATA_SOURCES_QUICK_REFERENCE.md** - All data source URLs and access information in one place  
+- **IMPLEMENTATION_DIARY_TEMPLATE.md** - Standardized template for consistent progress documentation
+- **SUBTASK_COMPLETION_CHECKLIST.md** - Quality assurance checklist to ensure nothing is missed
+
+### 🚨 Critical Compliance Requirements
+
+- **HIPAA Compliance**: Small cell suppression (<11 observations) for all health data
+- **License Attribution**: Required footer attribution for CA Medical Board, LA County DPH, and other sources
+- **File Naming**: Use `*_hipaa_compliant.csv` for health data outputs
+- **Privacy Protection**: Apply privacy flags to all BigQuery health data tables
+
+### Development Workflow
+
+The project follows a systematic TaskMaster-driven workflow:
+
+1. **Check Status**: `task-master list` - See all tasks and their dependencies
+2. **Get Next Task**: `task-master next` - Identify what to work on next  
+3. **View Details**: `task-master show <id>` - Get complete task specifications
+4. **Update Progress**: `task-master update-subtask --id=X.Y --prompt="Progress update"`
+5. **Mark Complete**: `task-master set-status --id=X.Y --status=done`
+
+## 📊 Data Sources & Pipeline
+
+- **Provider Data**: CA Medical Board physician roster (~1,500 LA County cardiologists) [HIPAA compliant]
+- **Demand Data**: CDC PLACES coronary heart disease prevalence + US Census population + LA County mortality data [Small cell suppression <11]
+- **Travel Data**: OpenStreetMap LA County extract with OpenTripPlanner + LA Metro GTFS [Multimodal routing]  
+- **Historical Data**: Provider address changes 2020-2024 for validation
+- **Validation Data**: HRSA Health Professional Shortage Area designations
+
+## 🔬 Technical Implementation
+
+### Core Technologies
+
+- **Data Infrastructure**: DuckDB, DVC, GeoPandas, Shapely, PyArrow
+- **Machine Learning**: PyTorch, PyTorch Geometric (GraphSAGE), Stable-Baselines3 (PPO)
+- **Optimization**: Gymnasium custom environments, behavioral cloning pre-training
+- **Validation**: Statistical correlation analysis, counterfactual evaluation
+- **Visualization**: Streamlit, Folium, Plotly, Seaborn
+- **Infrastructure**: Docker, GitHub Actions, automated deployment
+
+### Methodology Overview
+
+**Phase 1: Foundation (Tasks 1-5)**
+- Systematic data collection from multiple authoritative sources
+- Comprehensive data validation and quality assurance
+- Unified data pipeline with automated versioning and lineage tracking
+
+**Phase 2: Optimization (Tasks 6-8)**  
+- Unmet Demand Index calculation using distance-decay accessibility model
+- Exploratory analysis revealing access disparity patterns
+- Reinforcement learning environment with PPO agent training
+
+**Phase 3: Validation & Interface (Tasks 9-10)**
+- Historical validation against real provider movements 2020-2024
+- Interactive dashboard for stakeholder scenario exploration
+
+## 📈 Expected Results
+
+- **Prediction Accuracy**: R > 0.4 correlation between predicted and observed UDI improvements
+- **Optimization Performance**: >15% improvement in average UDI compared to current allocation
+- **Model Validation**: >70% of RL predictions outperform naive baselines
+- **Historical Coverage**: Complete monthly data coverage 2020-2024 (48+ months)
+
+## 🛠️ TaskMaster Commands Reference
+
+### Essential Commands
 ```bash
-# Start the Streamlit dashboard
-streamlit run src/app.py
+# Project overview
+task-master list                           # See all tasks and progress
+task-master next                          # Get next available task
 
-# Or run with Docker
-docker-compose up
+# Task details  
+task-master show <id>                     # View specific task details
+task-master show 1,2,3                    # View multiple tasks
+
+# Progress tracking
+task-master set-status --id=<id> --status=<status>    # Update task status
+task-master update-subtask --id=X.Y --prompt="..."    # Log progress details
+
+# Task management
+task-master expand --id=<id>              # Break task into subtasks
+task-master add-task --prompt="..."       # Add new tasks if needed
 ```
 
-## 📊 Data Sources
+### Status Values
+- `pending` - Ready to start
+- `in-progress` - Currently working  
+- `done` - Completed successfully
+- `blocked` - Waiting on dependencies
 
-- **Provider Data**: [CMS NPPES](https://npiregistry.cms.hhs.gov/) - National Provider Registry
-- **Health Data**: [CDC PLACES](https://www.cdc.gov/places/) - ZIP-level heart disease prevalence
-- **Claims Data**: [CMS Public Use Files](https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data) - Usage patterns
-- **Demographics**: [US Census ACS](https://www.census.gov/programs-surveys/acs) - Risk factor data
+## 📁 File Organization
 
-## 🏗️ Architecture
+### Key Files
+- `README.md` - This comprehensive project overview
+- `PROJECT_PLAN_REFERENCE.txt` - Complete original project specification  
+- `TASK_STRUCTURE_SUMMARY.txt` - Detailed task breakdown and dependencies
+- `requirements.txt` - All Python dependencies with versions
+- `.taskmaster/` - TaskMaster configuration and task database
 
-```
-├── data/               # Data pipeline and storage
-│   ├── raw/           # Original source data
-│   ├── processed/     # Cleaned and transformed data
-│   └── external/      # External datasets
-├── src/               # Source code
-│   ├── data/          # Data collection and processing
-│   ├── models/        # ML model implementations
-│   ├── visualization/ # Dashboard and plotting
-│   └── utils/         # Utility functions
-├── models/            # Trained model artifacts
-├── notebooks/         # Jupyter notebooks for exploration
-├── tests/             # Unit and integration tests
-├── docs/              # Documentation
-└── config/            # Configuration files
-```
+### Development Guidelines
 
-## 🔬 Methodology
+1. **Follow TaskMaster Workflow**: Always use TaskMaster commands for progress tracking
+2. **Document Everything**: Update `TaskN_Implementation_diary.txt` for every subtask
+3. **Validate Inputs/Outputs**: Ensure each subtask produces specified deliverables
+4. **Maintain Dependencies**: Complete prerequisite tasks before starting dependent ones
 
-### Phase 1: Data Foundation
-1. **Provider Collection**: NPPES bulk files + CA Health Services directory
-2. **Demand Modeling**: CDC + CMS + Census data ensemble
-3. **Travel Matrix**: Pre-computed academic datasets (de-risked approach)
-4. **Historical Data**: Provider movements 2020-2023 for validation
+## ⚠️ Important Notes
 
-### Phase 2: Baseline Analytics
-1. **Unmet Demand Index**: 30-minute travel time threshold
-2. **Classical Baselines**: SARIMA + XGBoost for comparison
-
-### Phase 3: Graph Neural Network
-1. **Heterogeneous Graph**: ZIP nodes + Provider nodes with spatial edges
-2. **GraphSAGE**: Multi-task learning (UDI + utilization prediction)
-3. **Validation**: Historical movement prediction accuracy
-
-### Phase 4: Reinforcement Learning
-1. **Custom Environment**: Multi-objective reward (access + efficiency + realism)
-2. **PPO Agent**: Offline training with provider relocation actions
-3. **A/B Testing**: Against greedy and classical baselines
-
-### Phase 5: Historical Validation
-1. **Natural Experiments**: Real provider movements as ground truth
-2. **Counterfactual Analysis**: Quantify opportunity cost of suboptimal moves
-
-## 📈 Results
-
-- **Prediction Accuracy**: R² > 0.6 on historical provider movement impacts
-- **Optimization Performance**: 15% improvement over baseline access metrics
-- **Model Validation**: 50+ real-world movement cases successfully predicted
-
-## 🛠️ Technology Stack
-
-- **Data Pipeline**: DuckDB, DVC, GeoPandas, Shapely
-- **Machine Learning**: PyTorch, PyTorch Geometric, Stable-Baselines3, Scikit-learn, Optuna
-- **Visualization**: Streamlit, Folium, Plotly
-- **Infrastructure**: Docker, GitHub Actions, Cloud deployment
+- **AI Assistant Workflow**: This project is designed for seamless AI assistant collaboration using TaskMaster
+- **Granular Progress Tracking**: Each subtask is designed for 30-60 minute focused sessions
+- **Research Foundation**: Project incorporates latest spatial optimization and healthcare access research
+- **Policy Applications**: All outputs designed for real-world policy and administrative use
 
 ## 📝 Documentation
 
-- [Installation Guide](docs/installation.md)
-- [Data Pipeline Documentation](docs/data-pipeline.md)
-- [Model Architecture](docs/model-architecture.md)
-- [API Reference](docs/api-reference.md)
-- [Deployment Guide](docs/deployment.md)
+Each task folder contains comprehensive documentation:
+- Implementation diaries with detailed progress logs
+- Input/output specifications with exact file paths
+- Validation criteria and success metrics
+- Handoff requirements for next tasks
 
-## 🧪 Testing
+## 🔗 Related Files
 
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=src
-
-# Run specific test category
-pytest tests/unit/
-pytest tests/integration/
-```
-
-## 🚀 Deployment
-
-### Streamlit Cloud
-The application is deployed at: [Live Demo](https://your-streamlit-url.com)
-
-### Docker Deployment
-```bash
-# Build and run locally
-docker build -t cardiology-optimizer .
-docker run -p 8501:8501 cardiology-optimizer
-
-# Or use docker-compose
-docker-compose up -d
-```
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- `PROJECT_PLAN_REFERENCE.txt` - Complete technical specification
+- `TASK_STRUCTURE_SUMMARY.txt` - Task organization and dependencies  
+- `NEW_WINDOW_BRIEFING.txt` - Quick start guide for new AI sessions
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+This project uses TaskMaster for systematic development:
 
-## ⚠️ Disclaimer
+1. Check `task-master list` for available tasks
+2. Follow the established task workflow
+3. Document all progress in implementation diaries  
+4. Ensure proper task dependencies are maintained
 
-This project is for demonstration and research purposes only. It is not intended for actual healthcare planning or provider allocation decisions. Real-world implementation would require additional constraints, stakeholder input, and regulatory compliance.
+## 📄 License
 
-## 📞 Contact
+MIT License - See LICENSE file for details.
 
-- **Author**: [Your Name]
-- **Email**: [your.email@example.com]
-- **LinkedIn**: [Your LinkedIn Profile]
-- **Project Link**: [https://github.com/yourusername/ca-cardiology-optimizer](https://github.com/yourusername/ca-cardiology-optimizer)
+## 📞 Contact & Support
 
-## 🙏 Acknowledgments
-
-- California Medical Board for public provider data
-- CDC for health prevalence datasets
-- CMS for healthcare utilization data
-- Academic research community for spatial optimization methodologies
+For questions about the TaskMaster workflow or project implementation, refer to:
+- Task-specific documentation in each `TaskN_*/documentation/` folder
+- `NEW_WINDOW_BRIEFING.txt` for quick AI assistant onboarding
+- TaskMaster command reference in this README

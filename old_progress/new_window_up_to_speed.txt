@@ -1,0 +1,113 @@
+## 🏥 CA Cardiology Optimizer - Project Context
+
+**Project:** ML system optimizing cardiologist distribution in California using graph neural networks and reinforcement learning. Portfolio project demonstrating healthcare optimization with real CMS data.
+
+**Tech Stack:** Python, DuckDB, PyTorch Geometric, Stable-Baselines3, Streamlit, Docker, GitHub Actions
+
+**Essential Files to Review:**
+- `docs/IMPLEMENTATION_DIARY.md` - Complete implementation history and diary format
+- `PRD.txt` - Complete project requirements and vision
+- `README.md` - Project overview, setup, and documentation
+- `legacy-setup/CLAUDE.md` - Development workflow and taskmaster usage guide
+- `.taskmaster/tasks/tasks.json` - Full task structure (or use commands below)
+
+**Get Current Status:**
+- `task-master next` - See current/next task with full details
+- `task-master list --status=done` - View completed work
+- `task-master list` - Overview of all tasks
+
+**Critical Workflow - DIARY MAINTENANCE:**
+After completing ANY subtask, update `docs/IMPLEMENTATION_DIARY.md` with the 5-part format shown in the file.
+
+**Development Commands:**
+- `task-master show <id>` for task details
+- `task-master update-subtask --id=<id> --prompt="notes"` to log progress
+- `task-master set-status --id=<id> --status=done` when complete
+
+**Context Commands:** Run `task-master next` to see exactly where we are.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+🏥 CA Cardiology Optimizer - Task 15: Historical Movement Data Collection
+Project Context: ML system optimizing cardiologist distribution in California using graph neural networks and reinforcement learning. Portfolio project demonstrating healthcare optimization with real CMS data.
+Current Status: Task 14 (Travel Time Matrix) is COMPLETE ✅. We now have a production-ready travel matrix with 161,454 provider-demand pairs, 0.992 geographic correlation, and 100% data completeness.
+Tech Stack: Python, DuckDB, PyTorch Geometric, Stable-Baselines3, Streamlit, Docker, GitHub Actions
+Essential Files to Review:
+docs/IMPLEMENTATION_DIARY.md - Complete implementation history and diary format
+PRD.txt - Complete project requirements and vision
+README.md - Project overview, setup, and documentation
+legacy-setup/CLAUDE.md - Development workflow and taskmaster usage guide
+.taskmaster/tasks/tasks.json - Full task structure (or use commands below)
+Critical Workflow - DIARY MAINTENANCE:
+After completing ANY subtask, update docs/IMPLEMENTATION_DIARY.md with the 5-part format shown in the file.
+Development Commands:
+task-master next - See current/next task with full details
+task-master list --status=done - View completed work
+task-master list - Overview of all tasks
+task-master show <id> for task details
+task-master update-subtask --id=<id> --prompt="notes" to log progress
+task-master set-status --id=<id> --status=done when complete
+Context Commands: Run task-master next to see exactly where we are.
+TASK 15: HISTORICAL MOVEMENT DATA COLLECTION
+Objective: Track provider address changes from NPPES monthly files to create movements.parquet with 50-100 statistically significant inter-county provider relocations from 2020-2023.
+Why Important: This data will be used to validate our optimization model by comparing predicted vs. actual provider movements during the COVID period (natural experiments).
+Current Task Status: Task 15 is PENDING, ready to start with Subtask 15.1.
+Dependencies: Task 12 (Provider Data Collection) is complete ✅
+Key Deliverables:
+data/processed/movements.parquet - 50-100 validated provider relocations
+Provider movement detection pipeline
+Geographic validation and filtering
+Technical Requirements:
+Download 48 monthly NPPES files (2020-2023)
+Implement address change detection algorithms
+Geocode addresses and calculate distances
+Filter for significant inter-county moves (>25 miles)
+Validate movements vs. data entry corrections
+Data Sources:
+CMS NPPES monthly files (2020-2023)
+California ZIP coordinates database (already available)
+Provider data from Task 12 (already processed)
+Relevant Existing Files:
+data/processed/ca_providers_filtered.csv - Current provider data (Task 12 output)
+src/data/travel_matrix/zip_coordinates_db.py - ZIP code geocoding (reusable)
+data/processed/travel_matrix.parquet - Travel matrix (Task 14 output, for reference)
+Quality Targets:
+50-100 statistically significant movements
+Inter-county relocations only
+>25 mile distance threshold
+Validated against data entry patterns
+Diverse geographic and temporal distribution
+Implementation Strategy:
+Subtask 15.1: Download and organize 48 monthly NPPES files
+Subtask 15.2: Implement address change detection pipeline
+Subtask 15.3: Filter for significant inter-county relocations
+Subtask 15.4: Create final validated movements.parquet
+Critical Success Factors:
+Distinguish between actual relocations and data entry corrections
+Focus on practice addresses (not mailing addresses)
+Use COVID period (2020-2023) as natural experiment window
+Ensure geographic accuracy with proper geocoding
+Maintain data quality and validation rigor
+Next Steps:
+Start with task-master next to see current task details
+Begin Subtask 15.1: Acquire NPPES Monthly Files (2020-2023)
+Follow the step-by-step, methodical approach with thorough documentation
+Update implementation diary after each subtask completion
+Remember: Work slowly and methodically, documenting each step thoroughly. The user prefers step-by-step progress with detailed documentation after each subtask.
+
+Do you understand and are ready to begin 15.1?
+

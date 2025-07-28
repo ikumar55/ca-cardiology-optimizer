@@ -1,0 +1,224 @@
+# 🚀 NEW AI WINDOW BRIEFING - LA County Cardiology Access Optimizer
+
+**READ THIS FIRST when opening a new AI assistant session for this project.**
+
+## 📋 Project Status Overview
+
+**Current State**: Project foundation complete with comprehensive TaskMaster-based structure + CRITICAL COMPLIANCE UPDATES
+**Next Phase**: Ready to begin systematic implementation starting with Task 1 (GCP Infrastructure)
+**Management System**: All tasks and progress tracked in TaskMaster (9 tasks, 105 subtasks)
+**Development Approach**: Granular, well-documented, AI-assistant-friendly workflow with HIPAA compliance
+
+## 🎯 What This Project Is
+
+**LA County Cardiology Access Optimizer** - A spatial optimization framework using reinforcement learning to optimize cardiologist distribution across Los Angeles County, with historical validation against real provider movements (2020-2024).
+
+**Key Innovation**: We validate our optimization recommendations against actual provider relocations, providing empirical credibility that most optimization projects lack.
+
+**End Goal**: Interactive dashboard enabling healthcare administrators to explore evidence-based provider allocation scenarios with measurable access improvements.
+
+
+
+## 🛠️ TaskMaster System - YOUR PRIMARY WORKFLOW
+
+**CRITICAL**: This project uses TaskMaster for ALL task management. You MUST use TaskMaster commands, not just internal notes.
+
+### Essential Commands You'll Use Daily:
+
+```bash
+# Get current project status
+task-master list                    # See all tasks, dependencies, progress
+
+# Find what to work on next  
+task-master next                    # Shows next available task with dependencies met
+
+# Get task details
+task-master show <id>               # Full task specifications (e.g., task-master show 1)
+task-master show 1,2,3              # Multiple tasks at once
+
+# Update progress (MANDATORY for each subtask)
+task-master update-subtask --id=X.Y --prompt="Detailed progress update"
+task-master set-status --id=X.Y --status=in-progress
+task-master set-status --id=X.Y --status=done
+
+# Task expansion when needed
+task-master expand --id=<id>        # Break task into subtasks
+```
+
+### Task Status Values:
+- `pending` - Ready to start
+- `in-progress` - Currently working on it
+- `done` - Completed successfully  
+- `blocked` - Waiting on dependencies
+
+## 🎯 USER PREFERENCES & EXPECTATIONS (CRITICAL)
+
+Based on established patterns, the user expects:
+
+1. **Work Slowly & Methodically**: Step-by-step approach, don't rush
+2. **Think Independently**: Take initiative, don't ask for permission on obvious next steps
+3. **Thoroughly Check Each Step**: Verify results before moving to next subtask
+4. **Document After Each Subtask**: Update TaskMaster with detailed progress
+5. **No Assumptions**: Check actual results, don't assume things worked
+6. **Proceed Without Confirmation**: Keep working systematically through subtasks
+
+## 📁 Key Files You Should Know
+
+- **README.md** - Complete project overview and TaskMaster commands
+- **UPDATED_PROJECT_PLAN.txt** - Comprehensive step by step project plan
+- **IMPLEMENTATION_DIARY_TEMPLATE.md** - Guide+Rules to follow when documenting the tasks/subtasks after they're completed
+- **SUBTASK_COMPLETION_CHECKLIST.md** - Comprehensive checklist to meet after 'completing' subtasks to ensure valid implementations and results
+- **task_adding_rules.txt** - Comprehensive Guide+Rules to follow when adding/changing tasks/subtasks in task-master
+- **.taskmaster/** - TaskMaster database and configuration
+
+## 🚀 How to Start Working (Step-by-Step)
+
+1. **Check Current State**:
+   ```bash
+   task-master list
+   ```
+
+2. **Get Next Task**:
+   ```bash
+   task-master next
+   ```
+
+3. **View Task Details**:
+   ```bash
+   task-master show <id>
+   ```
+
+4. **Start Working**:
+   ```bash
+   task-master set-status --id=X.Y --status=in-progress
+   ```
+
+5. **Document Progress** (after each subtask):
+   ```bash
+   task-master update-subtask --id=X.Y --prompt="What I accomplished, files created, issues found, next steps"
+   ```
+
+6. **Mark Complete**:
+   ```bash
+   task-master set-status --id=X.Y --status=done
+   ```
+
+## 📋 MANDATORY Documentation Requirements
+
+For every subtask you complete:
+
+1. **Update TaskMaster**: Use `update-subtask` with detailed progress
+2. **Update Implementation Diary**: Add entry to `TaskN_*/documentation/TaskN_Implementation_diary.txt`
+3. **Include Specifics**: Exact file paths, commands used, results obtained
+4. **Note Issues**: Any problems ener2countered and how you solved them
+5. **Next Steps**: What the next subtask needs from this one
+
+## 🎯 Current Priority Tasks
+
+**READY TO START** (no dependencies):
+- **Task 1**: GCP Infrastructure Setup with Terraform (11 subtasks)
+- All other tasks depend on Task 1 completion
+
+**START WITH**: Task 1, Subtask 1.1 (Create folder structure and initial Terraform files)
+
+**IMPORTANT**: Task 1 must be completed first - all other tasks have dependencies on it
+
+Example first command:
+```bash
+task-master show 1
+task-master set-status --id=1.1 --status=in-progress
+```
+
+## 🔧 Technical Context
+
+**Environment**: 
+- Python 3.9+ project with comprehensive dependencies
+- DuckDB for data management
+- TaskMaster for project management
+- Cursor with MCP integration
+
+**Data Sources** (WITH EXACT URLS):
+- CA Medical Board: https://www.mbc.ca.gov/Download/Rosters/ (~1,500 LA County cardiologists)
+- LA County Mortality: https://egis3.lacounty.gov/dataportal/ (CHD_Mortality_2018_2022_CensusTract)
+- CDC PLACES API: https://chronicdata.cdc.gov/resource/cwsq-ngmh.json (Heart Disease Prevalence)
+- LA Metro GTFS: https://gtfs.metro.net/ (Public transit routing)
+- OpenStreetMap: https://download.geofabrik.de/north-america/us/california/socal-latest.osm.pbf
+- US Census: BigQuery public dataset `bigquery-public-data.census_bureau_acs`
+
+**Key Technologies**:
+- Data: BigQuery, GeoPandas, OpenTripPlanner (OTP), OR-Tools
+- ML: PyTorch, Stable-Baselines3 (PPO), PyTorch Geometric  
+- Visualization: Streamlit, Folium, Plotly
+- Infrastructure: GCP (Cloud Run, BigQuery, Cloud Functions, Cloud Storage)
+
+## 🚨 CRITICAL COMPLIANCE REQUIREMENTS (MANDATORY)
+
+**HIPAA/Privacy Protection**:
+- Small cell suppression: Hide data where n<11 observations (LA County DPH standard)
+- Add privacy protection flags to all health data tables
+- Document all privacy-preserving transformations
+- Create HIPAA_COMPLIANCE_LOG.md for each health data task
+
+**License Attribution Requirements**:
+- CA Medical Board: "Free public use" - requires visible attribution
+- LA County mortality: CC-BY-4.0 license - attribution required
+- CDC PLACES: Public domain - acknowledge source
+- Dashboard footer MUST include all attributions
+- Create LICENSE_ATTRIBUTION.md for every task
+
+**File Naming Conventions**:
+- Health data: `*_hipaa_compliant.csv`
+- Travel data: `otp_multimodal_matrix.parquet`
+- Validation: `validation_dataset_300_400_moves.parquet` (NOT 120-180)
+
+**Validation Sample Sizes (CORRECTED)**:
+- Historical provider movements: 300-400 usable moves over 5-year period
+- Annual breakdown: ~60-80 usable moves/year after filtering
+- Directional accuracy target: 65-75% (95% CI, n=300-400)
+
+## ⚠️ Critical Success Factors
+
+1. **Always Use TaskMaster**: Never work on tasks without updating TaskMaster
+2. **30-60 Minute Granularity**: Each subtask should be focused and achievable
+3. **Complete Documentation**: Every step logged for seamless handoffs
+4. **Dependency Respect**: Don't start tasks that require incomplete dependencies
+5. **Quality Over Speed**: Thorough validation better than quick completion
+
+## 🚨 Common Mistakes to Avoid
+
+- ❌ Working without updating TaskMaster status
+- ❌ Skipping documentation in implementation diaries  
+- ❌ Assuming outputs without verification
+- ❌ Starting dependent tasks before prerequisites complete
+- ❌ Creating manual files instead of using TaskMaster structure
+
+## 🎯 Success Pattern
+
+```
+1. task-master next
+2. task-master show <id>  
+3. task-master set-status --id=X.Y --status=in-progress
+4. [Do the actual work with verification]
+5. task-master update-subtask --id=X.Y --prompt="Detailed update"
+6. [Update TaskN_Implementation_diary.txt]
+7. task-master set-status --id=X.Y --status=done
+8. Repeat for next subtask
+```
+
+## 📞 Quick Reference
+
+- **Full Project Details**: README.md
+- **Technical Specification**: PROJECT_PLAN_REFERENCE.txt  
+- **Task Dependencies**: TASK_STRUCTURE_SUMMARY.txt
+- **TaskMaster Commands**: README.md "TaskMaster Commands Reference" section
+
+## 🎯 Ready to Begin?
+
+Run these commands to start:
+```bash
+task-master list
+task-master next
+task-master show 1
+```
+
+You're now ready to systematically implement the LA County Cardiology Access Optimizer with full context and proper workflow management! 

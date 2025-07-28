@@ -1,0 +1,5 @@
+# Example variable values - copy to terraform.tfvars and customize
+project_id = "cacardiologyoptimizer"
+region     = "us-west1"
+zone       = "us-west1-a"
+# Additional variables will be added for each module 

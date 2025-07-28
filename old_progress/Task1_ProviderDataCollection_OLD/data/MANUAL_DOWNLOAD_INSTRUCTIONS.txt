@@ -1,0 +1,47 @@
+
+CA MEDICAL BOARD ROSTER - MANUAL DOWNLOAD INSTRUCTIONS
+====================================================
+
+The automated download script was unable to locate the direct CSV download link.
+Please follow these steps to manually download the data:
+
+STEP 1: Navigate to DCA Public Information Portal
+   URL: https://www.dca.ca.gov/consumers/public_info/index.shtml
+
+STEP 2: Look for Medical Board of California Section
+   - Look for folders or links related to "Medical Board of California"
+   - The agency code should be "MBC" 
+   - May also be listed as "Physician and Surgeon" licenses
+
+STEP 3: Download the Bulk Data File
+   - Look for CSV files containing physician/doctor data
+   - File should be 50-100MB+ in size
+   - Should contain approximately 450,000+ total physician records
+   - Download the most recent file (usually monthly updates)
+
+STEP 4: Save the File
+   - Save the downloaded file as: ca_medical_board_roster_raw.csv
+   - Place it in the directory: Task1_ProviderDataCollection/data/
+   - Exact path: Task1_ProviderDataCollection/data/ca_medical_board_roster_raw.csv
+
+STEP 5: Verify the Download
+   - File size should be at least 50MB
+   - Open the file and verify it contains physician data
+   - Should have columns like: License Number, Name, Address, City, County, etc.
+   - Should contain various medical specialties including cardiology
+
+ALTERNATIVE SOURCES TO TRY:
+1. https://www.dca.ca.gov/data/index.shtml (Main data portal)
+2. https://www.mbc.ca.gov/ (Medical Board website - look for public data)
+3. Search for "California physician licensee data" or "MBC bulk data"
+
+EXPECTED DATA STRUCTURE:
+- Total records: ~450,000 physicians
+- Cardiology providers: ~5,200 (our target)
+- File format: CSV with headers
+- Update frequency: Monthly
+
+If you successfully download the file manually, you can continue with the next 
+step in the pipeline (Task 1.4: Filter for cardiology providers).
+
+For questions or issues, check the TaskMaster documentation or implementation diary.
