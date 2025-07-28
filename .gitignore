@@ -227,3 +227,4 @@ service-account-key.json
 **/service-account-key.json
 terraform.tfvars
 **/terraform.tfvars
+.terraform/
